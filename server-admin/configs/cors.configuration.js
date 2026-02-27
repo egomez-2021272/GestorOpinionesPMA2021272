@@ -1,19 +1,11 @@
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:3010')
-    .split(',')
-    .map((o) => o.trim());
-
-const corsOptions = {
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
+export const corsOptions = {
+    origin: function (origin, callback) {
+        const whitelist = [process.env.FRONTEND_URL, 'http://localhost:3010', 'http://127.0.0.1:3010'];
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
             callback(null, true);
         } else {
-            callback(new Error(`CORS: origen no permitido → ${origin}`));
+            callback(new Error('No permitido por CORS'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    optionsSuccessStatus: 200,
+    credentials: true
 };
-
-export default corsOptions;
