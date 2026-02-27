@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { createAdminSeed } from './admin.seed.js';
 
 export const dbConnection = async () => {
     try {
@@ -22,13 +21,10 @@ export const dbConnection = async () => {
             console.log('MongoDB disconnected');
         });
 
-        await mongoose.connect(process.env.URI_MONGODB, {
+        await mongoose.connect(process.env.URI_MONGO, {
             serverSelectionTimeoutMS: 5000,
             maxPoolSize: 10
         });
-
-        // Crear admin seed después de conectar
-        await createAdminSeed();
 
     } catch (err) {
         console.error('Error connecting to DB:', err);
