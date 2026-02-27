@@ -9,8 +9,10 @@ import { corsOptions } from './cors.configuration.js';
 import { helmetConfig } from './helmet.configuration.js';
 import { requestLimit } from './rateLimit.configuration.js';
 import { errorHandler } from '../middlewares/handle-errors.js';
+import authRoutes from '../src/auth/auth.routes.js';
+import userRoutes from '../src/users/user.routes.js';
 import publicationRoutes from '../src/publications/publication.routes.js';
-
+import commentRoutes from '../src/comments/comment.routes.js';
 
 const BASE_PATH = '/opiniones/v1';
 
@@ -25,6 +27,9 @@ const middlewares = (app) => {
 
 const routes = (app) => {
     app.use(`${BASE_PATH}/publications`, publicationRoutes);
+    app.use(`${BASE_PATH}/auth`, authRoutes);
+    app.use(`${BASE_PATH}/users`, userRoutes);
+    app.use(`${BASE_PATH}`, commentRoutes);
     app.get(`${BASE_PATH}/health`, (req, res) => {
         res.status(200).json({
             status: 'healthy',

@@ -42,11 +42,13 @@ export const validateJWT = (req, res, next) => {
         }
 
         req.user = {
-            id: decoded.sub,        // userId del servicio de autenticación
-            name: decoded.name || '', // agregamos el nombre si viene en el token
-            jti: decoded.jti,       // ID único del token
-            iat: decoded.iat,       // Emitido en
-            role: decoded.role || 'USER_ROLE', // Rol del usuario (default: USER_ROLE)
+            id: decoded.sub,
+            _id: decoded.sub,
+            uid: decoded.sub,
+            name: decoded.name || '',
+            jti: decoded.jti,
+            iat: decoded.iat,
+            role: decoded.role || 'USER_ROLE',
         };
 
         next();

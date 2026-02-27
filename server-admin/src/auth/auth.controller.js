@@ -1,7 +1,6 @@
 import User from '../users/user.model.js';
 import { encrypt, verifyPassword } from '../utils/encrypt.js';
 import { generateJWT } from '../utils/jwt.js';
-
 export const register = async (req, res) => {
     try {
         const { username, email, password, name } = req.body;
