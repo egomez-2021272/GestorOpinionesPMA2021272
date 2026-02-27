@@ -12,7 +12,7 @@ export const getProfile = async (req, res) => {
     } catch (err) {
         res.status(500).json({
             success: false,
-            message: 'Error fetching profile',
+            message: 'Error al intentar obtener el perfil',
             error: err.message
         });
     }
@@ -23,11 +23,10 @@ export const updateProfile = async (req, res) => {
         const { uid } = req.user;
         const { newPassword, oldPassword, name, username, ...rest } = req.body;
 
-        // Evitar actualización de roles o status
         if (rest.role || rest.status) {
             return res.status(403).json({
                 success: false,
-                message: 'Cannot update role or status'
+                message: 'No se puede actualizar rol o estado'
             });
         }
 
@@ -55,7 +54,7 @@ export const updateProfile = async (req, res) => {
         } else if (newPassword && !oldPassword) {
             return res.status(400).json({
                 success: false,
-                message: 'Old password is required to set a new password'
+                message: 'Antigua contraseña es requerida'
             });
         }
 
@@ -63,14 +62,14 @@ export const updateProfile = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: 'Profile updated successfully',
+            message: 'Perfil actualizado con exito',
             user: updatedUser
         });
 
     } catch (err) {
         res.status(500).json({
             success: false,
-            message: 'Error updating profile',
+            message: 'Error al intentar actualizar el perfikl',
             error: err.message
         });
     }
